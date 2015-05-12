@@ -1,0 +1,52 @@
+.quilt	{
+	width: 420px;
+	height: 540px;
+	background: #DDD;
+}
+
+/* define quilt blocks */
+
+span	{
+	display: block;
+	width: 60px;
+	height: 60px;
+}
+
+.square	{
+	width: 60px;
+	height: 60px;
+	background: rgba(110, 152, 121, 1);
+	float: left;
+}
+
+.hst-topleft {
+	width: 0;
+	height: 0;
+	border-top: 60px solid rgba(110, 152, 121, 1);
+	border-right: 60px solid transparent;
+	float: left;
+}
+
+.hst-topright {
+	width: 0;
+	height: 0;
+	border-top: 60px solid rgba(110, 152, 121, 1);
+	border-left: 60px solid transparent;
+	float: left;
+}
+
+.hst-bottomright {
+	width: 0;
+	height: 0;
+	border-bottom: 60px solid rgba(110, 152, 121, 1);
+	border-left: 60px solid transparent;
+	float: left;
+}
+
+.hst-bottomleft {
+	width: 0;
+	height: 0;
+	border-bottom: 60px solid rgba(110, 152, 121, 1);
+	border-right: 60px solid transparent;
+	float: left;
+}

@@ -1,0 +1,175 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"squ",
+				"squareOfFive"
+			],
+			[
+				"numbero",
+				"numberOfPuppies"
+			],
+			[
+				"turtle",
+				"turtleFact"
+			],
+			[
+				"nu",
+				"numberOfPuppies"
+			],
+			[
+				"n",
+				"numberOfDogs"
+			],
+			[
+				"number",
+				"numberOfKittens"
+			],
+			[
+				"num",
+				"numberOfDogs"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/Rebekah/Sites/exercism/javascript/bob/bob.js",
+		"/Users/Rebekah/Sites/exercism/javascript/bob/bob_test.spec.js",
+		"/Users/Rebekah/Sites/cs171/homework/hw1/table.html",
+		"/Users/Rebekah/Sites/cs171/homework/section2/material/not-so-bare.html",
+		"/Users/Rebekah/Sites/cs171/homework/section2/material/chart.html",
+		"/Users/Rebekah/Sites/cs171/homework/section2/material/chart-interactive.html",
+		"/Users/Rebekah/Sites/cs171/homework/hw1/data/countries_1995_2012.json",
+		"/Users/Rebekah/Sites/cs171/homework/hw1/README.md",
+		"/Users/Rebekah/Sites/make/wp-content/themes/adelle/style.css",
+		"/Users/Rebekah/Sites/make/wp-content/themes/adelle-child/style.css",
+		"/Users/Rebekah/Desktop/fonts/webfontkit-20140219-115035/stylesheet.css",
+		"/Users/Rebekah/Desktop/fonts/font-awesome-4.0.3/css/font-awesome.css"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"header",
+			"site-h",
+			"page"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}
