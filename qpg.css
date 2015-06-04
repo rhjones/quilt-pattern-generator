@@ -4,19 +4,28 @@
 	background: #DDD;
 }
 
+.border {
+	border: 1px solid #CCC;
+}
+
+/* define row */
+.row {
+	margin: 0;
+	padding: 0;
+	height: 60px;
+}
+
 /* define quilt blocks */
 
 span	{
-	display: block;
-	width: 60px;
-	height: 60px;
+	display: inline-block;
 }
 
 .square	{
 	width: 60px;
 	height: 60px;
 	background: rgba(110, 152, 121, 1);
-	float: left;
+	/* float: left; */
 }
 
 .hst-topleft {
@@ -24,7 +33,7 @@ span	{
 	height: 0;
 	border-top: 60px solid rgba(110, 152, 121, 1);
 	border-right: 60px solid transparent;
-	float: left;
+	/*float: left;*/
 }
 
 .hst-topright {
@@ -32,7 +41,7 @@ span	{
 	height: 0;
 	border-top: 60px solid rgba(110, 152, 121, 1);
 	border-left: 60px solid transparent;
-	float: left;
+	/*float: left;*/
 }
 
 .hst-bottomright {
@@ -40,7 +49,7 @@ span	{
 	height: 0;
 	border-bottom: 60px solid rgba(110, 152, 121, 1);
 	border-left: 60px solid transparent;
-	float: left;
+	/*float: left;*/
 }
 
 .hst-bottomleft {
@@ -48,5 +57,5 @@ span	{
 	height: 0;
 	border-bottom: 60px solid rgba(110, 152, 121, 1);
 	border-right: 60px solid transparent;
-	float: left;
+	/*float: left;*/
 }
