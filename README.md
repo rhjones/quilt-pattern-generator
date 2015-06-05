@@ -7,8 +7,9 @@ Initially working with two colors; may eventually add multiple colors.
 May also add additional kinds of quilt blocks/shapes.
 
 TODO
-- way to change quilt size
 - way to count (and display) # of HST and square blocks needed
 - way to save (and share?) patterns
 
+COMPLETE
+- way to change quilt size
 
