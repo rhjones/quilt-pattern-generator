@@ -7,9 +7,13 @@ Initially working with two colors; may eventually add multiple colors.
 May also add additional kinds of quilt blocks/shapes.
 
 TODO
-- way to count (and display) # of HST and square blocks needed
-- way to save (and share?) patterns
+- save (and share?) patterns
+- generate random set of blocks, then repeat pattern as larger block
+- calcuate necessary yardage
+- include cutting and piecing instructions
+- style
 
 COMPLETE
 - way to change quilt size
+- count (and display) # of HST and square blocks needed
 
