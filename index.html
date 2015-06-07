@@ -7,12 +7,21 @@
 	<body>
 		<h1>Quilt Pattern Generator</h1>
 		<form id="sizer">
-			Rows: <input type="text" id="rows" name="rows"><br />
-			Columns: <input type="text" id="columns" name="columns"><br />
+			<label for="rows">Rows</label> <input type="text" id="rows" name="rows" autofocus><br />
+			<label for="columns">Columns</label> <input type="text" id="columns" name="columns"><br />
+			<label for="blocksize">Finished Block Size</label> <select id ="blocksize" name="blocksize">
+			  <option value="2">2 inches</option>
+			  <option value="3">3 inches</option>
+			  <option value="4">4 inches</option>
+			  <option value="5">5 inches</option>
+			  <option value="6">6 inches</option>
+			</select><br />
 			<input type="submit" id="submit" value="submit">
 		</form>
 		<p id="squares">Squares: </p>
 		<p id="hsts">Half Square Triangles: </p>
+		<p id="fabricA">Fabric A (green): </p>
+		<p id="fabricB">Fabric B (white): </p>
 		<div id="quilt">
 		</div>
 		<script src="jquery.js"></script>
