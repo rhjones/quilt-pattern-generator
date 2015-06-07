@@ -9,7 +9,7 @@ May also add additional kinds of quilt blocks/shapes.
 TODO
 - save (and share?) patterns
 - generate random set of blocks, then repeat pattern as larger block
-
+- fix HST yardage calculation (divide yardage in the middle of the process, instead of at the end)
 - include cutting and piecing instructions
 - style
 
