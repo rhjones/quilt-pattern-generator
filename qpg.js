@@ -1,21 +1,3 @@
-// via http://stackoverflow.com/questions/11730917/apply-a-random-class-to-an-element (using jquery)
-
-$(document).ready(function () {
-
-    // set block types
-    var blocktypes = ['square', 'hst-topleft', 'hst-topright', 'hst-bottomleft', 'hst-bottomright'];
-
-    // select all spans
-    var squares = $('span');
-
-    // loop through all spans and apply block type randomly
-    $.each(squares, function(key, value) {
-        // get random value/class-name from array and add it using the addClass function
-        $(value).addClass(blocktypes[Math.floor(Math.random() * blocktypes.length)]);
-    });
-
-});
-
 // set up some global variables
 var blockWidth = 60;
 var blockHeight = 60;
@@ -23,10 +5,10 @@ var rows;
 var columns;
 var squares;
 var hsts;
-var blocksize;
+var blockSize;
 
 // array for block classes
-var blocktypes = ['square', 'hst-topleft', 'hst-topright', 'hst-bottomleft', 'hst-bottomright'];
+var blockTypes = ['square', 'hst-topleft', 'hst-topright', 'hst-bottomleft', 'hst-bottomright'];
 
 // locate some DOM elements
 var submit = document.getElementById('submit');
@@ -48,7 +30,7 @@ submit.onclick = function(event) {
 	// grab data from form
 	rows = document.getElementById('rows').value;
 	columns = document.getElementById('columns').value;
-	blocksize = Number(document.getElementById('blocksize').value);
+	blockSize = Number(document.getElementById('blocksize').value);
 
 	// set quilt div width for border
 	quiltWidth = columns * blockWidth;
@@ -60,9 +42,9 @@ submit.onclick = function(event) {
 		for (j = 0; j < columns; j++) {
 			var newBlock = document.createElement('span');
 			// apply random class to block
-			var newClass = blocktypes[Math.floor(Math.random() * blocktypes.length)];
+			var newClass = blockTypes[Math.floor(Math.random() * blockTypes.length)];
 			// increase block counts based on class
-			if (newClass === blocktypes[0]) {
+			if (newClass === blockTypes[0]) {
 				squares++;
 			} else {
 				hsts++;
@@ -83,27 +65,26 @@ submit.onclick = function(event) {
 
 	// determine yardage
 
-	var yardage = function(blocksize, blockcount) {
+	var yardage = function(cutSize, blockCount) {
 
 		// calculate maximum # of blocks per strip
-		var blocksPerStrip = Math.floor(40 / blocksize);
+		var blocksPerStrip = Math.floor(40 / cutSize);
 
 		// calculate minimum # of strips needed
-		var strips = Math.ceil(blockcount / blocksPerStrip);
+		var strips = Math.ceil(blockCount / blocksPerStrip);
 
 		// determine fabric yardage, based on # of strips
-		var stripsPerYard = (strips * blocksize) / 36;
+		var stripsPerYard = (strips * cutSize) / 36;
 		return(Math.ceil(stripsPerYard * 4) / 4).toFixed(2);
 	}
 
-	// unfinished cut size for squares = size + 0.5"
-	var yardageforSquares = yardage((blocksize + 0.5), squares);
+	// unfinished cut blocksize for squares = size + 0.5"
+	var ydSquares = yardage((blockSize + 0.5), squares);
 
-	// unfinished cut size for HSTs = size + 0.857"
-	var yardageforHSTs = yardage((blocksize + 0.875), hsts);
+	// unfinished cut blocksize for HSTs = size + 0.875"
+	var ydFabricB = yardage((blockSize + 0.875), (hsts / 2));
 
-	var ydFabricB = yardageforHSTs / 2;
-	var ydFabricA = Number(yardageforSquares) + Number(ydFabricB);
+	var ydFabricA = Number(ydSquares) + Number(ydFabricB);
 	
 
 	fabricA.textContent = 'Fabric A: ' + ydFabricA + ' yards';
