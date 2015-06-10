@@ -32,6 +32,20 @@ submit.onclick = function(event) {
 	columns = document.getElementById('columns').value;
 	blockSize = Number(document.getElementById('blocksize').value);
 
+	// validate
+	if (rows == null || rows == '') {
+        rowInput = document.getElementById('rows');
+        rowInput.className = 'warning';
+        alertmsg = document.createElement('p');
+        alertmsg.innerHTML = 'This field is required.';
+        alertmsg.id = 'alertmsg'
+        rowInput.parentNode.insertBefore(alertmsg, rowInput.nextSibling);
+        return false;
+    } else if (columns == null || columns == '') {
+    	return false;
+    } else if (blockSize == null || blockSize == '') {
+    	return false;
+    }
 	// set quilt div width for border
 	quiltWidth = columns * blockWidth;
 
@@ -85,7 +99,6 @@ submit.onclick = function(event) {
 	var ydFabricB = yardage((blockSize + 0.875), (hsts / 2));
 
 	var ydFabricA = Number(ydSquares) + Number(ydFabricB);
-	
 
 	fabricA.textContent = 'Fabric A: ' + ydFabricA + ' yards';
 	fabricB.textContent = 'Fabric B: ' + ydFabricB + ' yards';
