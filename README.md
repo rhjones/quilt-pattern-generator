@@ -8,7 +8,6 @@ May also add additional kinds of quilt blocks/shapes.
 
 TODO
 - review variable scope
-- validate form entries
 - random color for fabric A
 - save (and share?) patterns
 - generate random set of blocks, then repeat pattern as larger block
@@ -23,4 +22,10 @@ COMPLETE
 - calcuate necessary yardage
   - figure out necessary math
 - fix HST yardage calculation (divide yardage in the middle of the process, then round up)
+- validate form entries
+	- row needs to be a #
+	- column needs to be a #
+	- (for now) blocksize needs to be *something*
+- apply warning styling to form fields when they fail validation
+- add alert message to form fields when they validation
 
