@@ -7,11 +7,12 @@ Initially working with two colors; may eventually add multiple colors.
 May also add additional kinds of quilt blocks/shapes.
 
 TODO
+- review variable scope
+- validate form entries
 - random color for fabric A
 - save (and share?) patterns
 - generate random set of blocks, then repeat pattern as larger block
 - handling a larger range of block sizes (perhaps user-entered?)
-- validate form entries
 - include cutting and piecing instructions
 - style
 - maybe someday rewrite [this](http://www.levitated.net/daily/lev9block.html) in JavaScript, for fun
