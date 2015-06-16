@@ -14,6 +14,11 @@ TODO
 - handling a larger range of block sizes (perhaps user-entered?)
 - include cutting and piecing instructions
 - style
+	- alert messages
+	- form
+	- yardage calculation
+	- how to use this site
+	- cutting and piecing instructions
 - maybe someday rewrite [this](http://www.levitated.net/daily/lev9block.html) in JavaScript, for fun
 
 COMPLETE
