@@ -22,6 +22,7 @@ submit.onclick = function(event) {
 	quilt.innerHTML = "";
 	
 	// remove warnings
+	// http://stackoverflow.com/questions/10842471/remove-all-elements-with-a-certain-class-with-javascript
 	var alertMsgs = document.getElementsByClassName('alertmsg');
 	while (alertMsgs[0]) {
 		alertMsgs[0].parentNode.removeChild(alertMsgs[0]);

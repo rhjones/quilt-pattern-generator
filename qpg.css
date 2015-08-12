@@ -1,7 +1,11 @@
-.quilt	{
-	width: 420px;
-	height: 540px;
-	background: #DDD;
+#content {
+	width: 50%;
+	float: left;
+}
+
+#design	{
+	width: 50%;
+	float: left;
 }
 
 .border {
@@ -55,7 +59,7 @@ span	{
 	border-right: 60px solid transparent;
 }
 
-/* other styling */
+/* form styling */
 
 input[type=text]	{
 	border: 1px solid #CCC;
