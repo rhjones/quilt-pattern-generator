@@ -7,7 +7,6 @@ Initially working with two colors; may eventually add multiple colors.
 May also add additional kinds of quilt blocks/shapes.
 
 TODO
-- better quilt & block size options
 - review variable scope
 - random color for fabric A
 - save (and share?) patterns
@@ -24,6 +23,7 @@ TODO
 - maybe someday rewrite [this](http://www.levitated.net/daily/lev9block.html) in JavaScript, for fun
 
 COMPLETE
+- better quilt & block size options
 - way to change quilt size
 - count (and display) # of HST and square blocks needed
 - calcuate necessary yardage
