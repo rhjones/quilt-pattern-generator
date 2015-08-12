@@ -1,6 +1,11 @@
 // set up some global variables
-var blockWidth = 60;
-var blockHeight = 60;
+var dimensions = {
+	lap: [36, 36],
+	twin: [66, 96],
+	full: [84, 96],
+	queen: [90, 96],
+	king: [102, 96]
+}
 
 // array for block classes
 var blockTypes = ['square', 'hst-topleft', 'hst-topright', 'hst-bottomleft', 'hst-bottomright'];
@@ -21,7 +26,7 @@ submit.onclick = function(event) {
 	// remove previous quilt design
 	quilt.innerHTML = "";
 	
-	// remove warnings
+	// remove any existing warnings
 	// http://stackoverflow.com/questions/10842471/remove-all-elements-with-a-certain-class-with-javascript
 	var alertMsgs = document.getElementsByClassName('alertmsg');
 	while (alertMsgs[0]) {
@@ -37,11 +42,11 @@ submit.onclick = function(event) {
 	var hsts = 0;
 
 
-	// validate, attempt 1
+	// validate
 
 	var validate = function(field) {
 		var userEntry = document.getElementById(field).value;
-		if (userEntry == null || userEntry == '' || isNaN(userEntry)) {
+		if (userEntry == null || userEntry == '') {
 			entry = document.getElementById(field);
 			entry.className = 'warning';
 			alertmsg = document.createElement('p');
@@ -54,18 +59,27 @@ submit.onclick = function(event) {
 		}
 	};
 
-	var valRows = validate('rows');
-	var valCols = validate('columns');
+	var valQuiltSize = validate('quiltsize');
 	var valBlockSize = validate('blocksize');
 
-	if (valRows === false || valCols === false) {
+	if (valQuiltSize === false || valBlockSize === false) {
 		return false;
 	} else {
 		
 		// get data from form
-		var rows = document.getElementById('rows').value;
-		var columns = document.getElementById('columns').value;
+		var quiltSize = document.getElementById('quiltsize').value;
 		var blockSize = Number(document.getElementById('blocksize').value);
+
+		// determine desired dimensions
+		var wid = dimensions[quiltSize][0];
+		var len = dimensions[quiltSize][1];
+
+		// determine number of rows and columns based on quilt and block size
+		var columns = wid / blockSize;
+		var rows = len / blockSize;
+
+		var blockWidth = 60;
+		var blockHeight = 60;
 
 
 		// set quilt div width for border
@@ -74,7 +88,7 @@ submit.onclick = function(event) {
 		// loop through rows and columns, adding blocks
 		for (i = 0; i < rows; i++) {
 			var newRow = document.createElement('div');
-			newRow.className = 'row';
+			newRow.className = 'quiltrow';
 			for (j = 0; j < columns; j++) {
 				var newBlock = document.createElement('span');
 				// apply random class to block

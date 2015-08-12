@@ -1,35 +1,48 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="utf-8">
+   		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Quilt Pattern Generator</title>
-		<link rel="stylesheet" type="text/css" href="qpg.css">
+		<link rel="stylesheet" href="normalize.css">
+		<link rel="stylesheet" href="qpg.css">
 	</head>
 	<body>
-		<h1>Quilt Pattern Generator</h1>
-		<div id="content">
-			<form id="sizer">
-				<label for="rows">Rows</label> <input type="text" id="rows" name="rows" autofocus><br />
-				<label for="columns">Columns</label> <input type="text" id="columns" name="columns"><br />
-				<label for="blocksize">Finished Block Size</label> 
-				<select id ="blocksize" name="blocksize">
-					<option value=""> </option>
-					<option value="2">2 inches</option>
-				  	<option value="3">3 inches</option>
-				  	<option value="4">4 inches</option>
-					<option value="5">5 inches</option>
-					<option value="6">6 inches</option>
-				</select><br />
-				<input type="submit" id="submit" value="submit">
-			</form>
-			<p id="squares">Squares: </p>
-			<p id="hsts">Half Square Triangles: </p>
-			<p id="fabricA">Fabric A (green): </p>
-			<p id="fabricB">Fabric B (white): </p>
-		</div>
-		<div id="design">
-			<div id="quilt">
-			</div>
-		<div>
+		<div id="grid">
+			<h1>Quilt Pattern Generator</h1>
+			<div class="row">
+				<div class="column-half">
+					<form id="sizer">
+						<label for="quiltsize">Quilt Size</label> 
+						<select autofocus id="quiltsize" name="quiltsize">
+							<option value=""> </option>
+							<option value="lap">Baby / Lap (36 x 36")</option>
+						  	<option value="twin">Twin (66 x 96")</option>
+						  	<option value="full">Double / Full (84 x 96")</option>
+							<option value="queen">Queen (90 x 96")</option>
+							<option value="king">King (102 x 96")</option>
+						</select><br />
+						<label for="blocksize">Finished Block Size</label> 
+						<select id="blocksize" name="blocksize">
+							<option value=""> </option>
+							<option value="2">2 inches</option>
+						  	<option value="3">3 inches</option>
+							<option value="6">6 inches</option>
+						</select><br />
+						<input type="submit" id="submit" value="submit">
+					</form>
+					<p id="squares">Squares: </p>
+					<p id="hsts">Half Square Triangles: </p>
+					<p id="fabricA">Fabric A (green): </p>
+					<p id="fabricB">Fabric B (white): </p>
+				</div><!-- .column-half -->
+				<div class="column-half">
+					<div id="quilt">
+					</div><!-- .quilt -->
+				</div><!-- .column-half -->
+			</div><!-- .row -->
+		</div><!-- #grid -->
 		<script src="jquery.js"></script>
 		<script src="qpg.js"></script>
 	</body>

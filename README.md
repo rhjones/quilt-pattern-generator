@@ -7,6 +7,7 @@ Initially working with two colors; may eventually add multiple colors.
 May also add additional kinds of quilt blocks/shapes.
 
 TODO
+- better quilt & block size options
 - review variable scope
 - random color for fabric A
 - save (and share?) patterns
@@ -14,6 +15,7 @@ TODO
 - handling a larger range of block sizes (perhaps user-entered?)
 - include cutting and piecing instructions
 - style
+	- responsive scaling for quilt diagram
 	- alert messages
 	- form
 	- yardage calculation

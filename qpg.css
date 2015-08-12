@@ -1,19 +1,33 @@
-#content {
-	width: 50%;
-	float: left;
+#grid {
+	margin: 10px;
+	min-width: 310px;
 }
 
-#design	{
-	width: 50%;
-	float: left;
+@media (min-width: 700px) {
+	.row:after {
+		content: " ";
+		display: table;
+		clear: both;
+	}
+
+	.column-half {
+		width: 50%;
+		float: left;
+		padding: 10px;
+		box-sizing: border-box;
+	}
+}
+
+#quilt {
+	max-width: 100%;
 }
 
 .border {
 	border: 1px solid #CCC;
 }
 
-/* define row */
-.row {
+/* define quilt row */
+.quiltrow {
 	margin: 0;
 	padding: 0;
 	height: 60px;
