@@ -1,6 +1,6 @@
 #grid {
 	margin: 10px;
-	min-width: 310px;
+	min-width: 300px;
 }
 
 @media (min-width: 700px) {
@@ -18,8 +18,17 @@
 	}
 }
 
+#canvascont {
+	display: block;
+	width: 100%;
+	margin: auto;
+}
+
+#quiltcanvas	{
+	border: 1px solid #CCC;
+}
+
 #quilt {
-	max-width: 100%;
 }
 
 .border {

@@ -1,7 +1,7 @@
 // set up some global variables
 var dimensions = {
-	lap: [36, 36],
-	twin: [66, 96],
+	lap: [36, 36, 50],
+	twin: [66, 96, ],
 	full: [84, 96],
 	queen: [90, 96],
 	king: [102, 96]
@@ -77,13 +77,14 @@ submit.onclick = function(event) {
 		// determine number of rows and columns based on quilt and block size
 		var columns = wid / blockSize;
 		var rows = len / blockSize;
+		console.log('columns: ' + columns);
+		console.log('rows: ' + rows);
 
-		var blockWidth = 60;
-		var blockHeight = 60;
+		var blockWidth = 100 / columns;
+		console.log('blockWidth: ' + blockWidth);
 
-
-		// set quilt div width for border
-		var quiltWidth = columns * blockWidth;
+		// var blockWidth = 60;
+		// var blockHeight = 60;
 
 		// loop through rows and columns, adding blocks
 		for (i = 0; i < rows; i++) {
@@ -105,7 +106,9 @@ submit.onclick = function(event) {
 			quilt.appendChild(newRow);
 		}
 
-		// set quilt width and apply border
+		// apply border
+		var quiltWidth = columns * 60;
+		console.log(quiltWidth);
 		quilt.style.width = quiltWidth + 'px';
 		quilt.className = 'border';
 
@@ -144,4 +147,33 @@ submit.onclick = function(event) {
 
 
 
+// via http://ameijer.nl/2011/08/resizable-html5-canvas/
+//Get the canvas & context
+var c = $('#quiltcanvas');
+var ct = c.get(0).getContext('2d');
+var container = $(c).parent();
+
+//Run function when browser resizes
+$(window).resize( resizeCanvas );
+
+function resizeCanvas(){
+	c.attr('width', $(container).width() ); //max width
+	c.attr('height', $(container).height() ); //max height
+	
+	//Redraw & reposition content
+	var x = c.width();
+	var y = c.height();  			
+	ct.font = "20px Calibri";
+	
+	ct.fillStyle = "#DDDDDD"; //black
+	ct.fillRect( 0, 0, x, y); //fill the canvas
+	
+	var resizeText = "Canvas width: "+c.width()+"px";
+	ct.textAlign = "center";
+	ct.fillStyle = "#333333"; //white
+	ct.fillText(resizeText, (x/2), (y/2) );
+}
+
+//Initial call
+resizeCanvas();
 

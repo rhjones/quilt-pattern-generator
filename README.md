@@ -7,14 +7,18 @@ Initially working with two colors; may eventually add multiple colors.
 May also add additional kinds of quilt blocks/shapes.
 
 TODO
+- responsive scaling for quilt diagram
+	- switch to using canvas instead of a bunch of spans
+	- create resizable canvas
+	- draw quilt blocks on canvas
+		- figure out how to create different block types
 - review variable scope
-- random color for fabric A
+- random color for fabric A (or multiple color schemes?)
 - save (and share?) patterns
 - generate random set of blocks, then repeat pattern as larger block
 - handling a larger range of block sizes (perhaps user-entered?)
 - include cutting and piecing instructions
 - style
-	- responsive scaling for quilt diagram
 	- alert messages
 	- form
 	- yardage calculation
@@ -35,4 +39,5 @@ COMPLETE
 	- (for now) blocksize needs to be *something*
 - apply warning styling to form fields when they fail validation
 - add alert message to form fields when they validation
+
 

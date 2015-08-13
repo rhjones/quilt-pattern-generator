@@ -1,0 +1,9 @@
+#canvascont {
+	display: block;
+	width: 100%;
+	margin: auto;
+}
+
+#quiltcanvas	{
+	border: 1px solid #CCC;
+}
