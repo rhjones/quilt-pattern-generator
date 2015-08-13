@@ -8,10 +8,9 @@ May also add additional kinds of quilt blocks/shapes.
 
 TODO
 - responsive scaling for quilt diagram
-	- switch to using canvas instead of a bunch of spans
-	- create resizable canvas
-	- draw quilt blocks on canvas
-		- figure out how to create different block types
+	- resize canvas based on window size
+	- tile blocks according to current canvas size & desired quilt parameters
+	- resize existing blocks when canvas resizes
 - review variable scope
 - random color for fabric A (or multiple color schemes?)
 - save (and share?) patterns
@@ -27,6 +26,9 @@ TODO
 - maybe someday rewrite [this](http://www.levitated.net/daily/lev9block.html) in JavaScript, for fun
 
 COMPLETE
+- switch to using canvas instead of a bunch of spans
+- draw quilt blocks on canvas
+	- figure out how to create different block types
 - better quilt & block size options
 - way to change quilt size
 - count (and display) # of HST and square blocks needed
