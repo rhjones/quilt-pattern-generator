@@ -6,11 +6,15 @@ Initially working with two colors; may eventually add multiple colors.
 
 May also add additional kinds of quilt blocks/shapes.
 
-TODO
+## TODO
 - fix issue with proportionality of blocks
 - review variable scope
 - clean up JS
-- random color for fabric A (or multiple color schemes?)
+- color
+	- random color for fabric A
+	- multiple color schemes
+	- random color schemes
+	- apply your own color scheme
 - save (and share?) patterns
 - generate random set of blocks, then repeat pattern as larger block
 - handling a larger range of block sizes (perhaps user-entered?)
@@ -27,12 +31,12 @@ TODO
 	- about
 - maybe someday rewrite [this](http://www.levitated.net/daily/lev9block.html) in JavaScript, for fun
 
-COMPLETE
+## COMPLETE
 - switch to using canvas instead of a bunch of spans
 	- draw quilt blocks on canvas
 		- figure out how to create different block types
 	- resize canvas & quilt diagram with window resize
-- better quilt & block size options
+- switch to standard quilt sizes + compatible block sizes
 - way to change quilt size
 - count (and display) # of HST and square blocks needed
 - calcuate necessary yardage
