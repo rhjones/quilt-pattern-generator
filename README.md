@@ -21,6 +21,10 @@ TODO
 	- yardage calculation
 	- how to use this site
 	- cutting and piecing instructions
+- copy
+	- FAQ
+	- instructions for use
+	- about
 - maybe someday rewrite [this](http://www.levitated.net/daily/lev9block.html) in JavaScript, for fun
 
 COMPLETE
