@@ -1,30 +1,58 @@
-// set up some global variables
+// set up standard quilt dimensions in inches
 var dimensions = {
-	lap: [36, 36, 50],
-	twin: [66, 96, ],
+	lap: [36, 36],
+	twin: [66, 96],
 	full: [84, 96],
 	queen: [90, 96],
 	king: [102, 96]
 }
 
-// array for block classes
-var blockTypes = ['square', 'hst-topleft', 'hst-topright', 'hst-bottomleft', 'hst-bottomright'];
+// array to hold individual quilt block drawing functions
+var blocktypes = [square, hstTopLeft, hstTopRight, hstBottomLeft, hstBottomRight];
 
-// locate some DOM elements
+// locate key DOM elements
 var submit = document.getElementById('submit');
 var squareCount = document.getElementById('squares');
 var hstCount = document.getElementById('hsts')
 var fabricA = document.getElementById('fabricA');
 var fabricB = document.getElementById('fabricB');
-var quilt = document.getElementById('quilt');
 
 
-// fill quilt canvas with blocks
+// get the canvas, context, and container div (#canvascont)
+var canvas = document.getElementById('quiltcanvas');
+var ctx = canvas.getContext('2d');
+var container = canvas.parentNode;
+
+// does the canvas have a quilt drawn on it?
+var drawn = false;
+
+// set up a global blockWidth variable
+var blockWidth;
+var columns;
+var rows;
+
+// Run function when browser resizes
+$(window).resize( resizeCanvas );
+
+// resize the canvas width according to the width of the container div
+function resizeCanvas()	{
+	var qw = container.offsetWidth;
+	var ratio = canvas.height / canvas.width;
+	var qh = qw * ratio;
+	canvas.style.width = qw+'px';
+	canvas.style.height = qh+'px';
+}
+
+//Initial call
+resizeCanvas();
+
 submit.onclick = function(event) {
 	event.preventDefault();
 	
-	// remove previous quilt design
-	quilt.innerHTML = "";
+	// remove previous quilt design by clearing canvas
+	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+	// reset the drawn variable 
+	drawn = false;
 	
 	// remove any existing warnings
 	// http://stackoverflow.com/questions/10842471/remove-all-elements-with-a-certain-class-with-javascript
@@ -41,139 +69,122 @@ submit.onclick = function(event) {
 	var squares = 0;
 	var hsts = 0;
 
+	// get data from form
+	var quiltSize = document.getElementById('quiltsize').value;
+	var blockSize = Number(document.getElementById('blocksize').value);
 
-	// validate
+	// determine desired dimensions for quilt in inches
+	var wid = dimensions[quiltSize][0];
+	var len = dimensions[quiltSize][1];
 
-	var validate = function(field) {
-		var userEntry = document.getElementById(field).value;
-		if (userEntry == null || userEntry == '') {
-			entry = document.getElementById(field);
-			entry.className = 'warning';
-			alertmsg = document.createElement('p');
-			alertmsg.className = 'alertmsg';
-	        alertmsg.innerHTML = 'This field is required.';
-	        entry.parentNode.insertBefore(alertmsg, entry.nextSibling);
-	        return false;
-		} else {
-			return true;
-		}
-	};
+	// determine number of rows and columns based on quilt and block size
+	columns = wid / blockSize;
+	rows = len / blockSize;
 
-	var valQuiltSize = validate('quiltsize');
-	var valBlockSize = validate('blocksize');
+	// set up canvas
+	ctx.canvas.width = container.offsetWidth;
+	blockWidth = ctx.canvas.width / columns;
+	ctx.canvas.height = blockWidth * rows;
 
-	if (valQuiltSize === false || valBlockSize === false) {
-		return false;
-	} else {
-		
-		// get data from form
-		var quiltSize = document.getElementById('quiltsize').value;
-		var blockSize = Number(document.getElementById('blocksize').value);
+	// set up a block fill color for Fabric A
+	ctx.fillStyle = 'rgba(110, 152, 121, 1)';
 
-		// determine desired dimensions
-		var wid = dimensions[quiltSize][0];
-		var len = dimensions[quiltSize][1];
+	// set up (a, b, c, d) for drawing
+	var a = 0;
+	var b = 0;
 
-		// determine number of rows and columns based on quilt and block size
-		var columns = wid / blockSize;
-		var rows = len / blockSize;
-		console.log('columns: ' + columns);
-		console.log('rows: ' + rows);
-
-		var blockWidth = 100 / columns;
-		console.log('blockWidth: ' + blockWidth);
-
-		// var blockWidth = 60;
-		// var blockHeight = 60;
-
-		// loop through rows and columns, adding blocks
-		for (i = 0; i < rows; i++) {
-			var newRow = document.createElement('div');
-			newRow.className = 'quiltrow';
-			for (j = 0; j < columns; j++) {
-				var newBlock = document.createElement('span');
-				// apply random class to block
-				var newClass = blockTypes[Math.floor(Math.random() * blockTypes.length)];
-				// increase block counts based on class
-				if (newClass === blockTypes[0]) {
+	for (i = 0; i < rows; i++) {
+		for (j = 0; j < columns; j++) {
+			var newBlockType = blocktypes[Math.floor(Math.random() * blocktypes.length)];
+			if (newBlockType === blocktypes[0]) {
 					squares++;
 				} else {
 					hsts++;
 				}
-				newBlock.className = newClass;
-				newRow.appendChild(newBlock);
-			}
-			quilt.appendChild(newRow);
+			newBlockType(a,b);
+			a += blockWidth;
 		}
-
-		// apply border
-		var quiltWidth = columns * 60;
-		console.log(quiltWidth);
-		quilt.style.width = quiltWidth + 'px';
-		quilt.className = 'border';
-
-		// update square and HST count on page
-		squareCount.textContent = 'Squares: ' + squares;
-		hstCount.textContent = 'Half Square Triangles: ' + hsts;
-
-		// determine yardage
-
-		var yardage = function(cutSize, blockCount) {
-
-			// calculate maximum # of blocks per strip
-			var blocksPerStrip = Math.floor(40 / cutSize);
-
-			// calculate minimum # of strips needed
-			var strips = Math.ceil(blockCount / blocksPerStrip);
-
-			// determine fabric yardage, based on # of strips
-			var stripsPerYard = (strips * cutSize) / 36;
-			return(Math.ceil(stripsPerYard * 4) / 4).toFixed(2);
-		}
-
-		// unfinished cut blocksize for squares = size + 0.5"
-		var ydSquares = yardage((blockSize + 0.5), squares);
-
-		// unfinished cut blocksize for HSTs = size + 0.875"
-		var ydFabricB = yardage((blockSize + 0.875), (hsts / 2));
-
-		var ydFabricA = Number(ydSquares) + Number(ydFabricB);
-
-		fabricA.textContent = 'Fabric A: ' + ydFabricA + ' yards';
-		fabricB.textContent = 'Fabric B: ' + ydFabricB + ' yards';
+		a = 0;
+		b += blockWidth;
 	}
-		
-} // end of submit
 
+	// add a border
+	canvas.className = 'border';
 
+	// set the drawn variable to true;
+	drawn = true;
 
-// via http://ameijer.nl/2011/08/resizable-html5-canvas/
-//Get the canvas & context
-var c = $('#quiltcanvas');
-var ct = c.get(0).getContext('2d');
-var container = $(c).parent();
+	// update square and HST count on page
+	squareCount.textContent = 'Squares: ' + squares;
+	hstCount.textContent = 'Half Square Triangles: ' + hsts;
 
-//Run function when browser resizes
-$(window).resize( resizeCanvas );
+	// determine yardage
 
-function resizeCanvas(){
-	c.attr('width', $(container).width() ); //max width
-	c.attr('height', $(container).height() ); //max height
-	
-	//Redraw & reposition content
-	var x = c.width();
-	var y = c.height();  			
-	ct.font = "20px Calibri";
-	
-	ct.fillStyle = "#DDDDDD"; //black
-	ct.fillRect( 0, 0, x, y); //fill the canvas
-	
-	var resizeText = "Canvas width: "+c.width()+"px";
-	ct.textAlign = "center";
-	ct.fillStyle = "#333333"; //white
-	ct.fillText(resizeText, (x/2), (y/2) );
+	var yardage = function(cutSize, blockCount) {
+
+		// calculate maximum # of blocks per strip
+		var blocksPerStrip = Math.floor(40 / cutSize);
+
+		// calculate minimum # of strips needed
+		var strips = Math.ceil(blockCount / blocksPerStrip);
+
+		// determine fabric yardage, based on # of strips
+		var stripsPerYard = (strips * cutSize) / 36;
+		return(Math.ceil(stripsPerYard * 4) / 4).toFixed(2);
+	}
+
+	// unfinished cut blocksize for squares = size + 0.5"
+	var ydSquares = yardage((blockSize + 0.5), squares);
+
+	// unfinished cut blocksize for HSTs = size + 0.875"
+	var ydFabricB = yardage((blockSize + 0.875), (hsts / 2));
+
+	var ydFabricA = Number(ydSquares) + Number(ydFabricB);
+
+	fabricA.textContent = 'Fabric A: ' + ydFabricA + ' yards';
+	fabricB.textContent = 'Fabric B: ' + ydFabricB + ' yards';
+
 }
 
-//Initial call
-resizeCanvas();
+function square(a,b) {
+	ctx.fillRect(a,b,blockWidth,blockWidth);
+}
+
+function hstTopLeft(a,b) {
+	var path = new Path2D();
+    path.moveTo(a,b);
+    path.lineTo(a + blockWidth,b);
+    path.lineTo(a,b + blockWidth);
+    ctx.fill(path);
+}
+
+function hstTopRight(a,b) {
+	var path = new Path2D();
+    path.moveTo(a,b);
+    path.lineTo(a + blockWidth, b);
+    path.lineTo(a + blockWidth,b + blockWidth);
+    ctx.fill(path);
+}
+
+function hstBottomLeft(a,b) {
+	var path = new Path2D();
+    path.moveTo(a,b);
+    path.lineTo(a + blockWidth,b + blockWidth);
+    path.lineTo(a, b + blockWidth);
+    ctx.fill(path);
+}
+
+function hstBottomRight(a,b) {
+	var path = new Path2D();
+    path.moveTo(a + blockWidth,b);
+    path.lineTo(a + blockWidth,b + blockWidth);
+    path.lineTo(a, b + blockWidth);
+    ctx.fill(path);
+}
+
+
+
+
+
+
 

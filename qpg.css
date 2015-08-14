@@ -20,15 +20,12 @@
 
 #canvascont {
 	display: block;
-	width: 100%;
+	width: 80%;
 	margin: auto;
 }
 
 #quiltcanvas	{
-	border: 1px solid #CCC;
-}
-
-#quilt {
+	/*border: 1px solid #CCC;*/
 }
 
 .border {

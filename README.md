@@ -7,11 +7,9 @@ Initially working with two colors; may eventually add multiple colors.
 May also add additional kinds of quilt blocks/shapes.
 
 TODO
-- responsive scaling for quilt diagram
-	- resize canvas based on window size
-	- tile blocks according to current canvas size & desired quilt parameters
-	- resize existing blocks when canvas resizes
+- fix issue with proportionality of blocks
 - review variable scope
+- clean up JS
 - random color for fabric A (or multiple color schemes?)
 - save (and share?) patterns
 - generate random set of blocks, then repeat pattern as larger block
@@ -27,8 +25,9 @@ TODO
 
 COMPLETE
 - switch to using canvas instead of a bunch of spans
-- draw quilt blocks on canvas
-	- figure out how to create different block types
+	- draw quilt blocks on canvas
+		- figure out how to create different block types
+	- resize canvas & quilt diagram with window resize
 - better quilt & block size options
 - way to change quilt size
 - count (and display) # of HST and square blocks needed
