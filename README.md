@@ -10,7 +10,6 @@ May also add additional kinds of quilt blocks/shapes.
 - review variable scope
 - clean up JS
 - color
-	- random color for fabric A
 	- multiple color schemes
 	- random color schemes
 	- apply your own color scheme
@@ -31,6 +30,8 @@ May also add additional kinds of quilt blocks/shapes.
 - maybe someday rewrite [this](http://www.levitated.net/daily/lev9block.html) in JavaScript, for fun
 
 ## COMPLETE
+- 	color
+	- random color for fabric A
 - fix issue with proportionality of blocks
 - switch to using canvas instead of a bunch of spans
 	- draw quilt blocks on canvas
