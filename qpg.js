@@ -14,6 +14,13 @@ var scheme;
 // http://www.colourlovers.com/palette/2723761/N_e_o_n_~
 var neon = ['rgba(0,255,200,1)', 'rgba(255,179,0,1)', 'rgba(176,255,5,1)', 'rgba(255,0,102,1)', 'rgba(112,141,145,1)'];
 
+// pool polychrome
+// http://www.colourlovers.com/palette/3078564/%E3%82%A2%E3%83%BC%E3%83%86%E3%82%A3%E3%82%B9%E3%83%88_CLAD
+var pool = ['rgba(52,194,182,1)', 'rgba(251,246,40,1', 'rgba(202,196,208,1)', 'rgba(182,241,29,1)', 'rgba(5,131,156,1)'];
+
+// wes anderson polychrome
+// http://wesandersonpalettes.tumblr.com/post/79956897654/coming-soon
+var wes = ['rgba(190,168,28,1)', 'rgba(123,136,95,1', 'rgba(83,143,105,1)', 'rgba(59,70,59,1)', 'rgba(154,50,0,1)'];
 
 // array to hold individual quilt block drawing functions
 var blocktypes = [square, hstTopLeft, hstTopRight, hstBottomLeft, hstBottomRight];
@@ -26,10 +33,13 @@ var hstTL = document.getElementById('hstTL');
 var hstTR = document.getElementById('hstTR');
 var hstBL = document.getElementById('hstBL');
 var hstBR = document.getElementById('hstBR');
+var fabrics = document.getElementsByClassName('fabric');
 var fabricA = document.getElementById('fabricA');
 var fabricB = document.getElementById('fabricB');
-var fabA = document.getElementById('fabA');
-var fabB = document.getElementById('fabB');
+var fabricC = document.getElementById('fabricC');
+var fabricD = document.getElementById('fabricD');
+var fabricE = document.getElementById('fabricE');
+var fabricF = document.getElementById('fabricF');
 
 // get the canvas, context, and container div (#canvascont)
 var canvas = document.getElementById('quiltcanvas');
@@ -115,8 +125,10 @@ submit.onclick = function(event) {
 
 	// set up a block fill color for Fabric A
 	// ctx.fillStyle = neon[Math.floor(Math.random() * neon.length)];
-	scheme = neon;
-	fabA.style.background = ctx.fillStyle;
+	scheme = wes;
+	for (var i = 0; i < scheme.length; i++) {
+		fabrics[i + 1].style.background = scheme[i];
+	}
 
 	// set up (a, b, c, d) for drawing
 	var a = 0;
@@ -167,8 +179,36 @@ submit.onclick = function(event) {
 
 	// determine yardage
 
+	// var yardage = function(cutSize, blockCount) {
+
+	// 	// calculate maximum # of blocks per strip
+	// 	var blocksPerStrip = Math.floor(40 / cutSize);
+
+	// 	// calculate minimum # of strips needed
+	// 	var strips = Math.ceil(blockCount / blocksPerStrip);
+
+	// 	// determine fabric yardage, based on # of strips
+	// 	var stripsPerYard = (strips * cutSize) / 36;
+	// 	return(Math.ceil(stripsPerYard * 4) / 4).toFixed(2);
+	// }
+
+	// // unfinished cut blocksize for squares = size + 0.5"
+	// var ydSquares = yardage((blockSize + 0.5), squares);
+
+	// // unfinished cut blocksize for HSTs = size + 0.875"
+	// var ydFabricB = yardage((blockSize + 0.875), (hsts / 2));
+
+	// var ydFabricA = Number(ydSquares) + Number(ydFabricB);
+
+	// fabricA.textContent = ydFabricA + ' yards';
+	// fabricB.textContent = ydFabricB + ' yards';
+
+
 	var yardage = function(cutSize, blockCount) {
 
+		// round up blockCount to nearest whole number
+		blockCount = Math.ceil(blockCount);
+		
 		// calculate maximum # of blocks per strip
 		var blocksPerStrip = Math.floor(40 / cutSize);
 
@@ -184,12 +224,24 @@ submit.onclick = function(event) {
 	var ydSquares = yardage((blockSize + 0.5), squares);
 
 	// unfinished cut blocksize for HSTs = size + 0.875"
-	var ydFabricB = yardage((blockSize + 0.875), (hsts / 2));
+	// one cut block makes 2 HSTs
+	var ydFabricA = yardage((blockSize + 0.875), (hsts / 2));
 
-	var ydFabricA = Number(ydSquares) + Number(ydFabricB);
+	var ydFabricC = yardage((blockSize + 0.875), (hstsTL / 2));
 
-	fabricA.textContent = ydFabricA + ' yards';
-	fabricB.textContent = ydFabricB + ' yards';
+	var ydFabricD = yardage((blockSize + 0.875), (hstsTR / 2));
+
+	var ydFabricE = yardage((blockSize + 0.875), (hstsBL / 2));
+
+	var ydFabricF = yardage((blockSize + 0.875), (hstsBR / 2));
+
+
+	fabricA.textContent = 'Fabric A (background): ' + ydFabricA + ' yards';
+	fabricB.textContent = 'Fabric B (squares): ' + ydSquares + ' yards';
+	fabricC.textContent = 'Fabric C (top left triangles): ' + ydFabricC + ' yards';
+	fabricD.textContent = 'Fabric D (top right triangles): ' + ydFabricD + ' yards';
+	fabricE.textContent = 'Fabric E (bottom left triangles): ' + ydFabricE + ' yards';
+	fabricF.textContent = 'Fabric F (bottom right triangles): ' + ydFabricF + ' yards';
 
 
 }

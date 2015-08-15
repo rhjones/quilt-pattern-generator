@@ -49,3 +49,7 @@ input[type=text]	{
 	margin-right: 5px;
 	border: 1px solid #666;
 }
+
+p	{
+	clear: both;
+}
