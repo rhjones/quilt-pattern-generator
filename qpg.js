@@ -7,6 +7,11 @@ var dimensions = {
 	king: [102, 96]
 }
 
+// neon polychrome
+
+var neon = ['rgba(43, 164, 67, 1)', 'rgba(198, 254, 93, 1)', 'rgba(27, 34, 99, 1)', 'rgba(223, 143, 65, 1)', 'rgba(30, 124, 100, 1)', 'rgba(242, 60, 34, 1)'];
+
+
 // array to hold individual quilt block drawing functions
 var blocktypes = [square, hstTopLeft, hstTopRight, hstBottomLeft, hstBottomRight];
 
@@ -16,7 +21,8 @@ var squareCount = document.getElementById('squares');
 var hstCount = document.getElementById('hsts')
 var fabricA = document.getElementById('fabricA');
 var fabricB = document.getElementById('fabricB');
-
+var fabA = document.getElementById('fabA');
+var fabB = document.getElementById('fabB');
 
 // get the canvas, context, and container div (#canvascont)
 var canvas = document.getElementById('quiltcanvas');
@@ -100,7 +106,8 @@ submit.onclick = function(event) {
     canvas.style.height = canvas.height + 'px';
 
 	// set up a block fill color for Fabric A
-	ctx.fillStyle = 'rgba(110, 152, 121, 1)';
+	ctx.fillStyle = neon[Math.floor(Math.random() * neon.length)];
+	fabA.style.background = ctx.fillStyle;
 
 	// set up (a, b, c, d) for drawing
 	var a = 0;
@@ -154,8 +161,8 @@ submit.onclick = function(event) {
 
 	var ydFabricA = Number(ydSquares) + Number(ydFabricB);
 
-	fabricA.textContent = 'Fabric A: ' + ydFabricA + ' yards';
-	fabricB.textContent = 'Fabric B: ' + ydFabricB + ' yards';
+	fabricA.textContent = ydFabricA + ' yards';
+	fabricB.textContent = ydFabricB + ' yards';
 
 }
 
