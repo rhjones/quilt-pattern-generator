@@ -39,8 +39,14 @@ function resizeCanvas()	{
 	var qw = container.offsetWidth;
 	var ratio = canvas.height / canvas.width;
 	var qh = qw * ratio;
-	canvas.style.width = qw+'px';
-	canvas.style.height = qh+'px';
+
+	/* 	
+		note: only resizing style, not actual canvas.width and canvas.height
+		resizing canvas.width and .height clears canvas
+		resizing style scales canvas
+	*/
+	canvas.style.width = qw + 'px';
+	canvas.style.height = qh + 'px';
 }
 
 //Initial call
@@ -82,9 +88,16 @@ submit.onclick = function(event) {
 	rows = len / blockSize;
 
 	// set up canvas
-	ctx.canvas.width = container.offsetWidth;
+	/* 	
+		have to resize both .width and .style.width to make sure that
+	  	canvas drawing surface is the right size
+	  	and that things are scaled appropriately
+	*/
+	canvas.width = container.offsetWidth;
+	canvas.style.width = canvas.width + 'px';
 	blockWidth = ctx.canvas.width / columns;
-	ctx.canvas.height = blockWidth * rows;
+	canvas.height = blockWidth * rows;
+    canvas.style.height = canvas.height + 'px';
 
 	// set up a block fill color for Fabric A
 	ctx.fillStyle = 'rgba(110, 152, 121, 1)';

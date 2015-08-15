@@ -7,7 +7,6 @@ Initially working with two colors; may eventually add multiple colors.
 May also add additional kinds of quilt blocks/shapes.
 
 ## TODO
-- fix issue with proportionality of blocks
 - review variable scope
 - clean up JS
 - color
@@ -32,6 +31,7 @@ May also add additional kinds of quilt blocks/shapes.
 - maybe someday rewrite [this](http://www.levitated.net/daily/lev9block.html) in JavaScript, for fun
 
 ## COMPLETE
+- fix issue with proportionality of blocks
 - switch to using canvas instead of a bunch of spans
 	- draw quilt blocks on canvas
 		- figure out how to create different block types
