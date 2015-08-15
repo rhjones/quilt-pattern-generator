@@ -7,10 +7,8 @@ Initially working with two colors; may eventually add multiple colors.
 May also add additional kinds of quilt blocks/shapes.
 
 ## TODO
-- review variable scope
-- clean up JS
 - color
-	- polychrome (more than two fabrics)
+	- make palette switcher buttons work
 	- multiple color schemes
 	- random color schemes
 	- apply your own color scheme
@@ -18,6 +16,8 @@ May also add additional kinds of quilt blocks/shapes.
 - generate random set of blocks, then repeat pattern as larger block
 - handling a larger range of block sizes (perhaps user-entered?)
 - include cutting and piecing instructions
+- review variable scope
+- clean up JS
 - style
 	- alert messages
 	- form
@@ -32,6 +32,7 @@ May also add additional kinds of quilt blocks/shapes.
 
 ## COMPLETE
 - 	color
+	- polychrome (more than two fabrics)
 	- random color for fabric A
 - fix issue with proportionality of blocks
 - switch to using canvas instead of a bunch of spans
