@@ -10,6 +10,7 @@ May also add additional kinds of quilt blocks/shapes.
 - review variable scope
 - clean up JS
 - color
+	- polychrome (more than two fabrics)
 	- multiple color schemes
 	- random color schemes
 	- apply your own color scheme

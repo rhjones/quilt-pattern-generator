@@ -7,9 +7,12 @@ var dimensions = {
 	king: [102, 96]
 }
 
-// neon polychrome
+/* set up color palettes */
+var scheme;
 
-var neon = ['rgba(43, 164, 67, 1)', 'rgba(198, 254, 93, 1)', 'rgba(27, 34, 99, 1)', 'rgba(223, 143, 65, 1)', 'rgba(30, 124, 100, 1)', 'rgba(242, 60, 34, 1)'];
+// neon polychrome
+// http://www.colourlovers.com/palette/2723761/N_e_o_n_~
+var neon = ['rgba(0,255,200,1)', 'rgba(255,179,0,1)', 'rgba(176,255,5,1)', 'rgba(255,0,102,1)', 'rgba(112,141,145,1)'];
 
 
 // array to hold individual quilt block drawing functions
@@ -18,7 +21,11 @@ var blocktypes = [square, hstTopLeft, hstTopRight, hstBottomLeft, hstBottomRight
 // locate key DOM elements
 var submit = document.getElementById('submit');
 var squareCount = document.getElementById('squares');
-var hstCount = document.getElementById('hsts')
+var hstCount = document.getElementById('hsts');
+var hstTL = document.getElementById('hstTL');
+var hstTR = document.getElementById('hstTR');
+var hstBL = document.getElementById('hstBL');
+var hstBR = document.getElementById('hstBR');
 var fabricA = document.getElementById('fabricA');
 var fabricB = document.getElementById('fabricB');
 var fabA = document.getElementById('fabA');
@@ -28,9 +35,6 @@ var fabB = document.getElementById('fabB');
 var canvas = document.getElementById('quiltcanvas');
 var ctx = canvas.getContext('2d');
 var container = canvas.parentNode;
-
-// does the canvas have a quilt drawn on it?
-var drawn = false;
 
 // set up a global blockWidth variable
 var blockWidth;
@@ -80,6 +84,10 @@ submit.onclick = function(event) {
 	// reset square/HST count and block size
 	var squares = 0;
 	var hsts = 0;
+	var hstsTL = 0;
+	var hstsTR = 0;
+	var hstsBL = 0;
+	var hstsBR = 0;
 
 	// get data from form
 	var quiltSize = document.getElementById('quiltsize').value;
@@ -106,7 +114,8 @@ submit.onclick = function(event) {
     canvas.style.height = canvas.height + 'px';
 
 	// set up a block fill color for Fabric A
-	ctx.fillStyle = neon[Math.floor(Math.random() * neon.length)];
+	// ctx.fillStyle = neon[Math.floor(Math.random() * neon.length)];
+	scheme = neon;
 	fabA.style.background = ctx.fillStyle;
 
 	// set up (a, b, c, d) for drawing
@@ -116,11 +125,27 @@ submit.onclick = function(event) {
 	for (i = 0; i < rows; i++) {
 		for (j = 0; j < columns; j++) {
 			var newBlockType = blocktypes[Math.floor(Math.random() * blocktypes.length)];
-			if (newBlockType === blocktypes[0]) {
-					squares++;
-				} else {
+			switch (newBlockType) {
+			    case blocktypes[0]:
+			        squares++
+			        break;
+			    case blocktypes[1]:
+			        hstsTL++;
 					hsts++;
-				}
+			        break;
+			    case blocktypes[2]:
+			        hstsTR++;
+					hsts++;
+			        break;
+			    case blocktypes[3]:
+			        hstsBL++;
+					hsts++;
+			        break;
+			    case blocktypes[4]:
+			        hstsBR++;
+					hsts++;
+			        break;
+			}
 			newBlockType(a,b);
 			a += blockWidth;
 		}
@@ -131,12 +156,14 @@ submit.onclick = function(event) {
 	// add a border
 	canvas.className = 'border';
 
-	// set the drawn variable to true;
-	drawn = true;
-
 	// update square and HST count on page
-	squareCount.textContent = 'Squares: ' + squares;
-	hstCount.textContent = 'Half Square Triangles: ' + hsts;
+	squareCount.textContent = squares;
+	hstCount.textContent = hsts;
+	hstTL.textContent = hstsTL;
+	hstTR.textContent = hstsTR;
+	hstBL.textContent = hstsBL;
+	hstBR.textContent = hstsBR;
+
 
 	// determine yardage
 
@@ -164,9 +191,11 @@ submit.onclick = function(event) {
 	fabricA.textContent = ydFabricA + ' yards';
 	fabricB.textContent = ydFabricB + ' yards';
 
+
 }
 
 function square(a,b) {
+	ctx.fillStyle = scheme[0];
 	ctx.fillRect(a,b,blockWidth,blockWidth);
 }
 
@@ -175,6 +204,7 @@ function hstTopLeft(a,b) {
     path.moveTo(a,b);
     path.lineTo(a + blockWidth,b);
     path.lineTo(a,b + blockWidth);
+    ctx.fillStyle = scheme[1];
     ctx.fill(path);
 }
 
@@ -183,6 +213,7 @@ function hstTopRight(a,b) {
     path.moveTo(a,b);
     path.lineTo(a + blockWidth, b);
     path.lineTo(a + blockWidth,b + blockWidth);
+    ctx.fillStyle = scheme[2];
     ctx.fill(path);
 }
 
@@ -191,6 +222,7 @@ function hstBottomLeft(a,b) {
     path.moveTo(a,b);
     path.lineTo(a + blockWidth,b + blockWidth);
     path.lineTo(a, b + blockWidth);
+    ctx.fillStyle = scheme[3];
     ctx.fill(path);
 }
 
@@ -199,6 +231,7 @@ function hstBottomRight(a,b) {
     path.moveTo(a + blockWidth,b);
     path.lineTo(a + blockWidth,b + blockWidth);
     path.lineTo(a, b + blockWidth);
+    ctx.fillStyle = scheme[4];
     ctx.fill(path);
 }
 
