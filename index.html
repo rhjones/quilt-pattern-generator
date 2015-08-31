@@ -1,65 +1,65 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-   		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Quilt Pattern Generator</title>
-		<link rel="stylesheet" href="normalize.css">
-		<link rel="stylesheet" href="qpg.css">
-	</head>
-	<body>
-		<div id="grid">
-			<h1>Quilt Pattern Generator</h1>
-			<div class="row">
-				<div class="column-half">
-					<form id="sizer">
-						<label for="quiltsize">Quilt Size</label> 
-						<select autofocus id="quiltsize" name="quiltsize">
-							<option value=""> </option>
-							<option value="lap">Baby / Lap (36 x 36")</option>
-						  	<option value="twin">Twin (66 x 96")</option>
-						  	<option value="full">Double / Full (84 x 96")</option>
-							<option value="queen">Queen (90 x 96")</option>
-							<option value="king">King (102 x 96")</option>
-						</select><br />
-						<label for="blocksize">Finished Block Size</label> 
-						<select id="blocksize" name="blocksize">
-							<option value=""> </option>
-							<option value="2">2 inches</option>
-						  	<option value="3">3 inches</option>
-							<option value="6">6 inches</option>
-						</select><br />
-						<input type="submit" id="submit" value="submit">
-					</form>
-					<p>Squares: <span id="squares"></span></p>
-					<p>Half Square Triangles: <span id="hsts"></span></p>
-					<p>HST top left: <span id="hstTL"></span></p>
-					<p>HST top right: <span id="hstTR"></span></p>
-					<p>HST bottom left: <span id="hstBL"></span></p>
-					<p>HST bottom right: <span id="hstBR"></span></p>
-					<p><span class="fabric"></span><span id="fabricA"> </span></p>
-					<p><span class="fabric"></span><span id="fabricB"> </span></p>
-					<p><span class="fabric"></span><span id="fabricC"> </span></p>
-					<p><span class="fabric"></span><span id="fabricD"> </span></p>
-					<p><span class="fabric"></span><span id="fabricE"> </span></p>
-					<p><span class="fabric"></span><span id="fabricF"> </span></p>
-					
-				</div><!-- .column-half -->
-				<div class="column-half">
-					<div id="designoptions">
-							<button type="button">Monochrome</button>
-							<button type="button">Wes Anderson</button>
-							<button type="button">Neon</button>
-					</div>
-					<div id="canvascont">
-						<canvas id="quiltcanvas">
-		    			</canvas>
-		    		</div><!-- #canvascont -->
-				</div><!-- .column-half -->
-			</div><!-- .row -->
-		</div><!-- #grid -->
-		<script src="jquery.js"></script>
-		<script src="qpg.js"></script>
-	</body>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Quilt Pattern Generator</title>
+	<link rel="stylesheet" href="normalize.css">
+	<link rel="stylesheet" href="qpg.css">
+</head>
+<body>
+	<div id="grid">
+		<h1>Quilt Pattern Generator</h1>
+		<div class="row">
+			<div class="column-half">
+				<form id="sizer">
+					<label for="quiltsize">Quilt Size</label> 
+					<select autofocus id="quiltsize" name="quiltsize">
+						<option value=""> </option>
+						<option value="lap">Baby / Lap (36 x 36")</option>
+					  	<option value="twin">Twin (66 x 96")</option>
+					  	<option value="full">Double / Full (84 x 96")</option>
+						<option value="queen">Queen (90 x 96")</option>
+						<option value="king">King (102 x 96")</option>
+					</select><br />
+					<label for="blocksize">Finished Block Size</label> 
+					<select id="blocksize" name="blocksize">
+						<option value=""> </option>
+						<option value="2">2 inches</option>
+					  	<option value="3">3 inches</option>
+						<option value="6">6 inches</option>
+					</select><br />
+					<input type="submit" id="submit" value="submit">
+				</form>
+				<p>Squares: <span id="squares"></span></p>
+				<p>Half Square Triangles: <span id="hsts"></span></p>
+				<p>HST top left: <span id="hstTL"></span></p>
+				<p>HST top right: <span id="hstTR"></span></p>
+				<p>HST bottom left: <span id="hstBL"></span></p>
+				<p>HST bottom right: <span id="hstBR"></span></p>
+				<p><span class="fabric"></span><span id="fabricA"> </span></p>
+				<p><span class="fabric"></span><span id="fabricB"> </span></p>
+				<p><span class="fabric"></span><span id="fabricC"> </span></p>
+				<p><span class="fabric"></span><span id="fabricD"> </span></p>
+				<p><span class="fabric"></span><span id="fabricE"> </span></p>
+				<p><span class="fabric"></span><span id="fabricF"> </span></p>
+				
+			</div><!-- .column-half -->
+			<div class="column-half">
+				<div id="designoptions">
+						<button type="button">Monochrome</button>
+						<button type="button">Wes Anderson</button>
+						<button type="button">Neon</button>
+				</div>
+				<div id="canvascont">
+					<canvas id="quiltcanvas">
+	    			</canvas>
+	    		</div><!-- #canvascont -->
+			</div><!-- .column-half -->
+		</div><!-- .row -->
+	</div><!-- #grid -->
+	<script src="jquery.js"></script>
+	<script src="qpg.js"></script>
+</body>
 </html>
