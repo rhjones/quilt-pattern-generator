@@ -75,11 +75,6 @@ resizeCanvas();
 submit.onclick = function(event) {
 	event.preventDefault();
 	
-	// remove previous quilt design by clearing canvas
-	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-	// reset the drawn variable 
-	drawn = false;
-	
 	// remove any existing warnings
 	// http://stackoverflow.com/questions/10842471/remove-all-elements-with-a-certain-class-with-javascript
 	var alertMsgs = document.getElementsByClassName('alertmsg');
@@ -90,160 +85,187 @@ submit.onclick = function(event) {
 	while (warnings[0]) {
 		warnings[0].className = '';
 	}
-	
-	// reset square/HST count and block size
-	var squares = 0;
-	var hsts = 0;
-	var hstsTL = 0;
-	var hstsTR = 0;
-	var hstsBL = 0;
-	var hstsBR = 0;
 
-	// get data from form
-	var quiltSize = document.getElementById('quiltsize').value;
-	var blockSize = Number(document.getElementById('blocksize').value);
+	// validate form data
+	var valQuiltSize = validate('quiltsize');
+	var valBlockSize = validate('blocksize');
+	if (valQuiltSize === false || valBlockSize === false) {
+		return false;
+	} else {
 
-	// determine desired dimensions for quilt in inches
-	var wid = dimensions[quiltSize][0];
-	var len = dimensions[quiltSize][1];
+		// remove previous quilt design by clearing canvas
+		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-	// determine number of rows and columns based on quilt and block size
-	columns = wid / blockSize;
-	rows = len / blockSize;
+		// reset square/HST count and block size
+		var squares = 0;
+		var hsts = 0;
+		var hstsTL = 0;
+		var hstsTR = 0;
+		var hstsBL = 0;
+		var hstsBR = 0;
 
-	// set up canvas
-	/* 	
-		have to resize both .width and .style.width to make sure that
-	  	canvas drawing surface is the right size
-	  	and that things are scaled appropriately
-	*/
-	canvas.width = container.offsetWidth;
-	canvas.style.width = canvas.width + 'px';
-	blockWidth = ctx.canvas.width / columns;
-	canvas.height = blockWidth * rows;
-    canvas.style.height = canvas.height + 'px';
+		// get data from form
+		var quiltSize = document.getElementById('quiltsize').value;
+		var blockSize = Number(document.getElementById('blocksize').value);
 
-	// set up a block fill color for Fabric A
-	// ctx.fillStyle = neon[Math.floor(Math.random() * neon.length)];
-	scheme = wes;
-	for (var i = 0; i < scheme.length; i++) {
-		fabrics[i + 1].style.background = scheme[i];
-	}
+		// determine desired dimensions for quilt in inches
+		var wid = dimensions[quiltSize][0];
+		var len = dimensions[quiltSize][1];
 
-	// set up (a, b, c, d) for drawing
-	var a = 0;
-	var b = 0;
+		// determine number of rows and columns based on quilt and block size
+		columns = wid / blockSize;
+		rows = len / blockSize;
 
-	for (i = 0; i < rows; i++) {
-		for (j = 0; j < columns; j++) {
-			var newBlockType = blocktypes[Math.floor(Math.random() * blocktypes.length)];
-			switch (newBlockType) {
-			    case blocktypes[0]:
-			        squares++
-			        break;
-			    case blocktypes[1]:
-			        hstsTL++;
-					hsts++;
-			        break;
-			    case blocktypes[2]:
-			        hstsTR++;
-					hsts++;
-			        break;
-			    case blocktypes[3]:
-			        hstsBL++;
-					hsts++;
-			        break;
-			    case blocktypes[4]:
-			        hstsBR++;
-					hsts++;
-			        break;
-			}
-			newBlockType(a,b);
-			a += blockWidth;
+		// set up canvas
+		/* 	
+			have to resize both .width and .style.width to make sure that
+		  	canvas drawing surface is the right size
+		  	and that things are scaled appropriately
+		*/
+		canvas.width = container.offsetWidth;
+		canvas.style.width = canvas.width + 'px';
+		blockWidth = ctx.canvas.width / columns;
+		canvas.height = blockWidth * rows;
+	    canvas.style.height = canvas.height + 'px';
+
+		// set up a block fill color for Fabric A
+		// ctx.fillStyle = neon[Math.floor(Math.random() * neon.length)];
+		scheme = wes;
+		for (var i = 0; i < scheme.length; i++) {
+			fabrics[i + 1].style.background = scheme[i];
 		}
-		a = 0;
-		b += blockWidth;
+
+		// set up (a, b, c, d) for drawing
+		var a = 0;
+		var b = 0;
+
+		for (i = 0; i < rows; i++) {
+			for (j = 0; j < columns; j++) {
+				var newBlockType = blocktypes[Math.floor(Math.random() * blocktypes.length)];
+				switch (newBlockType) {
+				    case blocktypes[0]:
+				        squares++
+				        break;
+				    case blocktypes[1]:
+				        hstsTL++;
+						hsts++;
+				        break;
+				    case blocktypes[2]:
+				        hstsTR++;
+						hsts++;
+				        break;
+				    case blocktypes[3]:
+				        hstsBL++;
+						hsts++;
+				        break;
+				    case blocktypes[4]:
+				        hstsBR++;
+						hsts++;
+				        break;
+				}
+				newBlockType(a,b);
+				a += blockWidth;
+			}
+			a = 0;
+			b += blockWidth;
+		}
+
+		// add a border
+		canvas.className = 'border';
+
+		// update square and HST count on page
+		squareCount.textContent = squares;
+		hstCount.textContent = hsts;
+		hstTL.textContent = hstsTL;
+		hstTR.textContent = hstsTR;
+		hstBL.textContent = hstsBL;
+		hstBR.textContent = hstsBR;
+
+
+		// determine yardage
+
+		// var yardage = function(cutSize, blockCount) {
+
+		// 	// calculate maximum # of blocks per strip
+		// 	var blocksPerStrip = Math.floor(40 / cutSize);
+
+		// 	// calculate minimum # of strips needed
+		// 	var strips = Math.ceil(blockCount / blocksPerStrip);
+
+		// 	// determine fabric yardage, based on # of strips
+		// 	var stripsPerYard = (strips * cutSize) / 36;
+		// 	return(Math.ceil(stripsPerYard * 4) / 4).toFixed(2);
+		// }
+
+		// // unfinished cut blocksize for squares = size + 0.5"
+		// var ydSquares = yardage((blockSize + 0.5), squares);
+
+		// // unfinished cut blocksize for HSTs = size + 0.875"
+		// var ydFabricB = yardage((blockSize + 0.875), (hsts / 2));
+
+		// var ydFabricA = Number(ydSquares) + Number(ydFabricB);
+
+		// fabricA.textContent = ydFabricA + ' yards';
+		// fabricB.textContent = ydFabricB + ' yards';
+
+
+		var yardage = function(cutSize, blockCount) {
+
+			// round up blockCount to nearest whole number
+			blockCount = Math.ceil(blockCount);
+			
+			// calculate maximum # of blocks per strip
+			var blocksPerStrip = Math.floor(40 / cutSize);
+
+			// calculate minimum # of strips needed
+			var strips = Math.ceil(blockCount / blocksPerStrip);
+
+			// determine fabric yardage, based on # of strips
+			var stripsPerYard = (strips * cutSize) / 36;
+			return(Math.ceil(stripsPerYard * 4) / 4).toFixed(2);
+		}
+
+		// unfinished cut blocksize for squares = size + 0.5"
+		var ydSquares = yardage((blockSize + 0.5), squares);
+
+		// unfinished cut blocksize for HSTs = size + 0.875"
+		// one cut block makes 2 HSTs
+		var ydFabricA = yardage((blockSize + 0.875), (hsts / 2));
+
+		var ydFabricC = yardage((blockSize + 0.875), (hstsTL / 2));
+
+		var ydFabricD = yardage((blockSize + 0.875), (hstsTR / 2));
+
+		var ydFabricE = yardage((blockSize + 0.875), (hstsBL / 2));
+
+		var ydFabricF = yardage((blockSize + 0.875), (hstsBR / 2));
+
+
+		fabricA.textContent = 'Fabric A (background): ' + ydFabricA + ' yards';
+		fabricB.textContent = 'Fabric B (squares): ' + ydSquares + ' yards';
+		fabricC.textContent = 'Fabric C (top left triangles): ' + ydFabricC + ' yards';
+		fabricD.textContent = 'Fabric D (top right triangles): ' + ydFabricD + ' yards';
+		fabricE.textContent = 'Fabric E (bottom left triangles): ' + ydFabricE + ' yards';
+		fabricF.textContent = 'Fabric F (bottom right triangles): ' + ydFabricF + ' yards';
 	}
 
-	// add a border
-	canvas.className = 'border';
+}
 
-	// update square and HST count on page
-	squareCount.textContent = squares;
-	hstCount.textContent = hsts;
-	hstTL.textContent = hstsTL;
-	hstTR.textContent = hstsTR;
-	hstBL.textContent = hstsBL;
-	hstBR.textContent = hstsBR;
+// set up some functions
 
-
-	// determine yardage
-
-	// var yardage = function(cutSize, blockCount) {
-
-	// 	// calculate maximum # of blocks per strip
-	// 	var blocksPerStrip = Math.floor(40 / cutSize);
-
-	// 	// calculate minimum # of strips needed
-	// 	var strips = Math.ceil(blockCount / blocksPerStrip);
-
-	// 	// determine fabric yardage, based on # of strips
-	// 	var stripsPerYard = (strips * cutSize) / 36;
-	// 	return(Math.ceil(stripsPerYard * 4) / 4).toFixed(2);
-	// }
-
-	// // unfinished cut blocksize for squares = size + 0.5"
-	// var ydSquares = yardage((blockSize + 0.5), squares);
-
-	// // unfinished cut blocksize for HSTs = size + 0.875"
-	// var ydFabricB = yardage((blockSize + 0.875), (hsts / 2));
-
-	// var ydFabricA = Number(ydSquares) + Number(ydFabricB);
-
-	// fabricA.textContent = ydFabricA + ' yards';
-	// fabricB.textContent = ydFabricB + ' yards';
-
-
-	var yardage = function(cutSize, blockCount) {
-
-		// round up blockCount to nearest whole number
-		blockCount = Math.ceil(blockCount);
-		
-		// calculate maximum # of blocks per strip
-		var blocksPerStrip = Math.floor(40 / cutSize);
-
-		// calculate minimum # of strips needed
-		var strips = Math.ceil(blockCount / blocksPerStrip);
-
-		// determine fabric yardage, based on # of strips
-		var stripsPerYard = (strips * cutSize) / 36;
-		return(Math.ceil(stripsPerYard * 4) / 4).toFixed(2);
+function validate(field) {
+	var userEntry = document.getElementById(field).value;
+	if (userEntry == null || userEntry == '') {
+		entry = document.getElementById(field);
+		entry.className = 'warning';
+		alertmsg = document.createElement('p');
+		alertmsg.className = 'alertmsg';
+        alertmsg.innerHTML = 'This field is required.';
+        entry.parentNode.insertBefore(alertmsg, entry.nextSibling);
+        return false;
+	} else {
+		return true;
 	}
-
-	// unfinished cut blocksize for squares = size + 0.5"
-	var ydSquares = yardage((blockSize + 0.5), squares);
-
-	// unfinished cut blocksize for HSTs = size + 0.875"
-	// one cut block makes 2 HSTs
-	var ydFabricA = yardage((blockSize + 0.875), (hsts / 2));
-
-	var ydFabricC = yardage((blockSize + 0.875), (hstsTL / 2));
-
-	var ydFabricD = yardage((blockSize + 0.875), (hstsTR / 2));
-
-	var ydFabricE = yardage((blockSize + 0.875), (hstsBL / 2));
-
-	var ydFabricF = yardage((blockSize + 0.875), (hstsBR / 2));
-
-
-	fabricA.textContent = 'Fabric A (background): ' + ydFabricA + ' yards';
-	fabricB.textContent = 'Fabric B (squares): ' + ydSquares + ' yards';
-	fabricC.textContent = 'Fabric C (top left triangles): ' + ydFabricC + ' yards';
-	fabricD.textContent = 'Fabric D (top right triangles): ' + ydFabricD + ' yards';
-	fabricE.textContent = 'Fabric E (bottom left triangles): ' + ydFabricE + ' yards';
-	fabricF.textContent = 'Fabric F (bottom right triangles): ' + ydFabricF + ' yards';
-
-
 }
 
 function square(a,b) {
