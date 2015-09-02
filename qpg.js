@@ -8,19 +8,20 @@ var dimensions = {
 }
 
 /* set up color palettes */
+// neon: http://www.colourlovers.com/palette/2723761/N_e_o_n_~
+// pool: http://www.colourlovers.com/palette/3078564/%E3%82%A2%E3%83%BC%E3%83%86%E3%82%A3%E3%82%B9%E3%83%88_CLAD
+// wes: http://wesandersonpalettes.tumblr.com/post/79956897654/coming-soon
 var scheme;
 
-// neon polychrome
-// http://www.colourlovers.com/palette/2723761/N_e_o_n_~
-var neon = ['rgba(0,255,200,1)', 'rgba(255,179,0,1)', 'rgba(176,255,5,1)', 'rgba(255,0,102,1)', 'rgba(112,141,145,1)'];
+var colors = {
+	neon: ['rgba(0,255,200,1)', 'rgba(255,179,0,1)', 'rgba(176,255,5,1)', 'rgba(255,0,102,1)', 'rgba(112,141,145,1)'],
+	pool: ['rgba(52,194,182,1)', 'rgba(251,246,40,1', 'rgba(202,196,208,1)', 'rgba(182,241,29,1)', 'rgba(5,131,156,1)'],
+	wes: ['rgba(190,168,28,1)', 'rgba(123,136,95,1)', 'rgba(83,143,105,1)', 'rgba(59,70,59,1)', 'rgba(154,50,0,1)']
+}
 
-// pool polychrome
-// http://www.colourlovers.com/palette/3078564/%E3%82%A2%E3%83%BC%E3%83%86%E3%82%A3%E3%82%B9%E3%83%88_CLAD
-var pool = ['rgba(52,194,182,1)', 'rgba(251,246,40,1', 'rgba(202,196,208,1)', 'rgba(182,241,29,1)', 'rgba(5,131,156,1)'];
-
-// wes anderson polychrome
-// http://wesandersonpalettes.tumblr.com/post/79956897654/coming-soon
-var wes = ['rgba(190,168,28,1)', 'rgba(123,136,95,1', 'rgba(83,143,105,1)', 'rgba(59,70,59,1)', 'rgba(154,50,0,1)'];
+// create single color array containing all possible colors
+colors.monos = colors.neon.concat(colors.pool, colors.wes);
+var mono = [];
 
 // array to hold individual quilt block drawing functions
 var blocktypes = [square, hstTopLeft, hstTopRight, hstBottomLeft, hstBottomRight];
@@ -51,25 +52,10 @@ var blockWidth;
 var columns;
 var rows;
 
-// Run function when browser resizes
+// Resize canvas when browser window resizes
 $(window).resize( resizeCanvas );
 
-// resize the canvas width according to the width of the container div
-function resizeCanvas()	{
-	var qw = container.offsetWidth;
-	var ratio = canvas.height / canvas.width;
-	var qh = qw * ratio;
-
-	/* 	
-		note: only resizing style, not actual canvas.width and canvas.height
-		resizing canvas.width and .height clears canvas
-		resizing style scales canvas
-	*/
-	canvas.style.width = qw + 'px';
-	canvas.style.height = qh + 'px';
-}
-
-//Initial call
+//Initial canvas call to make sure canvas matches first window size
 resizeCanvas();
 
 submit.onclick = function(event) {
@@ -89,7 +75,8 @@ submit.onclick = function(event) {
 	// validate form data
 	var valQuiltSize = validate('quiltsize');
 	var valBlockSize = validate('blocksize');
-	if (valQuiltSize === false || valBlockSize === false) {
+	var valColorScheme = validate('colorscheme');
+	if (valQuiltSize === false || valBlockSize === false || valColorScheme === false) {
 		return false;
 	} else {
 
@@ -128,14 +115,25 @@ submit.onclick = function(event) {
 		canvas.height = blockWidth * rows;
 	    canvas.style.height = canvas.height + 'px';
 
+	    // set up color scheme
+	    scheme = document.getElementById('colorscheme').value;
+	    if (scheme === 'mono') {
+	    	mono[0] = colors.monos[Math.floor(Math.random() * colors.monos.length)];
+	    	for (var i = 1; i < 5; i++ ) {
+	    		mono[i] = mono[0];
+	    	}
+	    	scheme = mono;
+	    } else {
+	    	scheme = colors[scheme];
+	    }
+
 		// set up a block fill color for Fabric A
 		// ctx.fillStyle = neon[Math.floor(Math.random() * neon.length)];
-		scheme = wes;
 		for (var i = 0; i < scheme.length; i++) {
 			fabrics[i + 1].style.background = scheme[i];
 		}
 
-		// set up (a, b, c, d) for drawing
+		// set up (a, b) for drawing
 		var a = 0;
 		var b = 0;
 
@@ -208,23 +206,6 @@ submit.onclick = function(event) {
 		// fabricA.textContent = ydFabricA + ' yards';
 		// fabricB.textContent = ydFabricB + ' yards';
 
-
-		var yardage = function(cutSize, blockCount) {
-
-			// round up blockCount to nearest whole number
-			blockCount = Math.ceil(blockCount);
-			
-			// calculate maximum # of blocks per strip
-			var blocksPerStrip = Math.floor(40 / cutSize);
-
-			// calculate minimum # of strips needed
-			var strips = Math.ceil(blockCount / blocksPerStrip);
-
-			// determine fabric yardage, based on # of strips
-			var stripsPerYard = (strips * cutSize) / 36;
-			return(Math.ceil(stripsPerYard * 4) / 4).toFixed(2);
-		}
-
 		// unfinished cut blocksize for squares = size + 0.5"
 		var ydSquares = yardage((blockSize + 0.5), squares);
 
@@ -253,6 +234,22 @@ submit.onclick = function(event) {
 
 // set up some functions
 
+// resize the canvas width according to the width of the container div
+function resizeCanvas()	{
+	var qw = container.offsetWidth;
+	var ratio = canvas.height / canvas.width;
+	var qh = qw * ratio;
+
+	/* 	
+		note: only resizing style, not actual canvas.width and canvas.height
+		resizing canvas.width and .height clears canvas
+		resizing style scales canvas
+	*/
+	canvas.style.width = qw + 'px';
+	canvas.style.height = qh + 'px';
+}
+
+// validate form data entries
 function validate(field) {
 	var userEntry = document.getElementById(field).value;
 	if (userEntry == null || userEntry == '') {
@@ -267,6 +264,26 @@ function validate(field) {
 		return true;
 	}
 }
+
+
+// calculate yardage
+function yardage(cutSize, blockCount) {
+
+	// round up blockCount to nearest whole number
+	blockCount = Math.ceil(blockCount);
+	
+	// calculate maximum # of blocks per strip
+	var blocksPerStrip = Math.floor(40 / cutSize);
+
+	// calculate minimum # of strips needed
+	var strips = Math.ceil(blockCount / blocksPerStrip);
+
+	// determine fabric yardage, based on # of strips
+	var stripsPerYard = (strips * cutSize) / 36;
+	return(Math.ceil(stripsPerYard * 4) / 4).toFixed(2);
+}
+
+// draw quilt blocks
 
 function square(a,b) {
 	ctx.fillStyle = scheme[0];

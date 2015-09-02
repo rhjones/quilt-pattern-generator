@@ -30,6 +30,15 @@
 					  	<option value="3">3 inches</option>
 						<option value="6">6 inches</option>
 					</select><br />
+					<label for="colorscheme">Color Scheme</label> 
+					<select id="colorscheme" name="colorscheme">
+						<option value=""> </option>
+						<option value="mono">Single color</option>
+						<option value="neon">Neon</option>
+						<option value="pool">Swimming pool</option>
+					  	<option value="wes">Wes Anderson</option>
+						
+					</select><br />
 					<input type="submit" id="submit" value="submit">
 				</form>
 				<p>Squares: <span id="squares"></span></p>
@@ -47,11 +56,6 @@
 				
 			</div><!-- .column-half -->
 			<div class="column-half">
-				<div id="designoptions">
-						<button type="button">Monochrome</button>
-						<button type="button">Wes Anderson</button>
-						<button type="button">Neon</button>
-				</div>
 				<div id="canvascont">
 					<canvas id="quiltcanvas">
 	    			</canvas>
