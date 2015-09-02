@@ -30,9 +30,9 @@ May also add additional kinds of quilt blocks/shapes.
 - maybe someday rewrite [this](http://www.levitated.net/daily/lev9block.html) in JavaScript, for fun
 
 ## COMPLETE
-- 	color
+- color
 	- polychrome (more than two fabrics)
-	- random color for fabric A
+	- random-ish color for fabric A
 - fix issue with proportionality of blocks
 - switch to using canvas instead of a bunch of spans
 	- draw quilt blocks on canvas
@@ -43,11 +43,7 @@ May also add additional kinds of quilt blocks/shapes.
 - count (and display) # of HST and square blocks needed
 - calcuate necessary yardage
   - figure out necessary math
-- fix HST yardage calculation (divide yardage in the middle of the process, then round up)
 - validate form entries
-	- row needs to be a #
-	- column needs to be a #
-	- (for now) blocksize needs to be *something*
 - apply warning styling to form fields when they fail validation
 - add alert message to form fields when they validation
 
