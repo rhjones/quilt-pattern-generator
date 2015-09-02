@@ -7,9 +7,8 @@ Initially working with two colors; may eventually add multiple colors.
 May also add additional kinds of quilt blocks/shapes.
 
 ## TODO
+- calculate yardage differently for mono vs polychrome quilts
 - color
-	- make palette switcher buttons work
-	- multiple color schemes
 	- random color schemes
 	- apply your own color scheme
 - save (and share?) patterns
