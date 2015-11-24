@@ -7,6 +7,7 @@ Initially working with two colors; may eventually add multiple colors.
 May also add additional kinds of quilt blocks/shapes.
 
 ## TODO
+- hook in fabric store
 - calculate yardage differently for mono vs polychrome quilts
 - color
 	- random color schemes

@@ -47,11 +47,10 @@ var canvas = document.getElementById('quiltcanvas');
 var ctx = canvas.getContext('2d');
 var container = canvas.parentNode;
 
-// set up global variables
+// set up a global blockWidth variable
 var blockWidth;
 var columns;
 var rows;
-var blockSize = 6;
 
 // Resize canvas when browser window resizes
 $(window).resize( resizeCanvas );
@@ -75,8 +74,9 @@ submit.onclick = function(event) {
 
 	// validate form data
 	var valQuiltSize = validate('quiltsize');
+	var valBlockSize = validate('blocksize');
 	var valColorScheme = validate('colorscheme');
-	if (valQuiltSize === false || valColorScheme === false) {
+	if (valQuiltSize === false || valBlockSize === false || valColorScheme === false) {
 		return false;
 	} else {
 
@@ -93,6 +93,7 @@ submit.onclick = function(event) {
 
 		// get data from form
 		var quiltSize = document.getElementById('quiltsize').value;
+		var blockSize = Number(document.getElementById('blocksize').value);
 
 		// determine desired dimensions for quilt in inches
 		var wid = dimensions[quiltSize][0];
